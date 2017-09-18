@@ -317,7 +317,7 @@ Ext.define('Shopware.apps.Rees46.controller.Main', {
             },
         });
     },
-    addBlock: function(button) {
+    addBlock: function (button) {
         var me = this,
             table = button.up('grid'),
             fields = table.query('[isFormField]'),
@@ -327,7 +327,7 @@ Ext.define('Shopware.apps.Rees46.controller.Main', {
             return;
         }
 
-        Ext.each(fields, function(field) {
+        Ext.each(fields, function (field) {
             fieldData = field.getModelData();
             data = Ext.apply(data, fieldData);
         });
@@ -350,7 +350,7 @@ Ext.define('Shopware.apps.Rees46.controller.Main', {
 
         grid.setLoading(true);
 
-        Ext.each(records, function(record) {
+        Ext.each(records, function (record) {
             recordData = record.getData();
 
             for (key in recordData) {

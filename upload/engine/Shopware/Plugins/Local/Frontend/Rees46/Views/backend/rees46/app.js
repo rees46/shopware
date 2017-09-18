@@ -10,16 +10,23 @@ Ext.define('Shopware.apps.Rees46', {
         'Main',
     ],
     models: [
-        'Settings',
+        'Blocks',
         'Categories',
         'Events',
+        'Settings',
     ],
     stores: [
-        'Settings',
+        'Blocks',
         'Categories',
         'Events',
+        'Settings',
     ],
     views: [
+        'element.Boolean',
+        'element.Number',
+        'element.Property',
+        'element.Select',
+        'element.Text',
         'main.Window',
         'settings.Window',
         'settings.Authorize',
@@ -27,15 +34,10 @@ Ext.define('Shopware.apps.Rees46', {
         'settings.Help',
         'settings.General',
         'settings.Blocks',
-        'element.Property',
-        'element.Boolean',
-        'element.Select',
-        'element.Text',
-        'element.Number',
     ],
     launch: function () {
         var me = this;
         return me.getController('Main').mainWindow;
-    }
+    },
 });
 //{/block}

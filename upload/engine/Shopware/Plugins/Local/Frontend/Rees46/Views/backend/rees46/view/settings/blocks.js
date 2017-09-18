@@ -24,7 +24,7 @@ Ext.define('Shopware.apps.Rees46.view.settings.Blocks', {
 
         me.callParent(arguments);
     },
-    createGrid: function() {
+    createGrid: function () {
         var me = this;
 
         return {
@@ -45,7 +45,7 @@ Ext.define('Shopware.apps.Rees46.view.settings.Blocks', {
             store: Ext.create('Shopware.apps.Rees46.store.Blocks'),
         }
     },
-    createColumns: function() {
+    createColumns: function () {
         var me = this;
 
         me.pageStore = Ext.create('Ext.data.Store', {
@@ -159,16 +159,18 @@ Ext.define('Shopware.apps.Rees46.view.settings.Blocks', {
             },
         ];
     },
-    onSelectRenderer: function(value, metadata, record, rowIndex, colIndex) {
+    onSelectRenderer: function (value, metadata, record, rowIndex, colIndex) {
         var me = this,
             column = me.columns[colIndex];
 
         if(!column.editor && !column._editor) {
             return value;
         }
+
         if(!column._editor) {
             column._editor = column.editor;
         }
+
         var editor = column._editor,
             store = column._editor.store,
             index,
@@ -177,8 +179,10 @@ Ext.define('Shopware.apps.Rees46.view.settings.Blocks', {
         if(!value) {
             return editor.emptyText;
         }
+
         index = store.find(editor.valueField, value);
         record = store.getAt(index);
+
         if(!record) {
             return editor.emptyText;
         }

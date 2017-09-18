@@ -1,22 +1,6 @@
 {extends file="frontend/listing/product-box/box-basic.tpl"}
 
 {block name="frontend_listing_box_article"}
-	<style>
-	.rees46-recommend a {
-		text-decoration: none;
-	    font-weight: bold;
-	    font-style: normal;
-	    font-stretch: normal;
-	    letter-spacing: -0.2px;
-	    text-align: center;
-	    color: #fff;
-	    vertical-align: middle;
-	    border-radius: 2px;
-		display: block !important;
-		position: relative !important;
-		font-sise: 12px !important;
-	}
-	</style>
 	<div class="recommended-item">
 		<div class="recommended-item-photo">
             {if isset($sArticle.image.thumbnails)}

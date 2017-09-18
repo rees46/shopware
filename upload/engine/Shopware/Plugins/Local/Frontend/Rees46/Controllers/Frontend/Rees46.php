@@ -19,6 +19,12 @@ class Shopware_Controllers_Frontend_Rees46 extends Enlight_Controller_Action
         foreach ($product_ids as $product_id) {
             $article = Shopware()->Modules()->Articles()->sGetArticleById((int)$product_id);
 
+            if (!$article['isAvailable']) {
+                $this->disableProduct($product_id);
+
+                continue;
+            }
+
             $url = $article['linkDetails'];
             $urlrw = $article['linkDetailsRewrited'];
 
@@ -53,5 +59,39 @@ class Shopware_Controllers_Frontend_Rees46 extends Enlight_Controller_Action
     private function getBlock($id)
     {
         return Shopware()->Db()->fetchRow('SELECT * FROM `rees46_blocks` WHERE id = "' . $id . '";');
+    }
+
+    private function disableProduct($id)
+    {
+        $curl['shop_id'] = $this->Config()->get('REES46_SETTING_STORE_KEY');
+        $curl['shop_secret'] = $this->Config()->get('REES46_SETTING_SECRET_KEY');
+        $curl['item_ids'] = $id;
+
+        $return = $this->curl('POST', 'https://api.rees46.com/import/disable', json_encode($curl));
+    }
+
+    private function curl($type, $url, $params = null)
+    {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $type);
+        curl_setopt($ch, CURLOPT_URL, $url);
+
+        if (isset($params)) {
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+        }
+
+        $data = [
+            'result' => curl_exec($ch),
+            'info' => curl_getinfo($ch),
+        ];
+
+        curl_close($ch);
+
+        return $data;
     }
 }

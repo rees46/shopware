@@ -37,19 +37,7 @@ Ext.define('Shopware.apps.Rees46.view.settings.Help', {
 
         return [
 			Ext.create('Ext.container.Container', {
-                html: '{s name="help"}Go to your REES46 store dashboard to get the access to:'
-                + '<br><ul>'
-                + '<li>Triggered emails</li>'
-                + '<li>Email marketing tool</li>'
-                + '<li>Personalized search</li>'
-                + '<li>Web push triggered notifications</li>'
-                + '<li>Instant web push notifications</li>'
-                + '<li>Audience segmentation</li>'
-                + '<li>Abandoned cart remarketing tool</li>'
-                + '</ul>'
-                + '<button class="plugin-manager-action-button primary" id="rees46GotoDashboard">REES46 dashboard</button><br><br>'
-                + 'Documentation: <a href="https://docs.rees46.com/display/en/Shopware+Plugin" target="_blank">https://docs.rees46.com/display/en/Shopware+Plugin</a><br><br>'
-                + 'Support: <a href="mailto:support@rees46.com?subject=Support for REES46 Shopware plugin">support@rees46.com</a>{/s}',
+                html: '{s name="help"}Go to your REES46 store dashboard to get the access to:<br><ul><li>Triggered emails</li><li>Email marketing tool</li><li>Personalized search</li><li>Web push triggered notifications</li><li>Instant web push notifications</li><li>Audience segmentation</li><li>Abandoned cart remarketing tool</li></ul><button class="plugin-manager-action-button primary" id="rees46GotoDashboard">REES46 dashboard</button><br><br>Documentation: <a href="https://docs.rees46.com/display/en/Shopware+Plugin" target="_blank">https://docs.rees46.com/display/en/Shopware+Plugin</a><br><br>Support: <a href="mailto:support@rees46.com?subject=Support for REES46 Shopware plugin">support@rees46.com</a>{/s}',
                 styleHtmlContent: true,
             }),
             me.getEventsContainer(),
@@ -65,7 +53,7 @@ Ext.define('Shopware.apps.Rees46.view.settings.Help', {
 	    }
 
         return  Ext.create('Ext.grid.Panel', {
-            title: 'Event Tracking',
+            title: '{s name="event_tracking"}Event Tracking{/s}',
             store: store,
             margin: '20 0 0 0',
             sortableColumns: false,

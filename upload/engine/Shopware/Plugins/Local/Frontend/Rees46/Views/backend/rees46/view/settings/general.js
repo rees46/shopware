@@ -132,7 +132,7 @@ Ext.define('Shopware.apps.Rees46.view.settings.General', {
             }),
             Ext.create('Ext.button.Button', {
                 cls: 'primary small',
-                text: '{s name="save"}Save{/s}',
+                text: '{s name="save"}Save settings{/s}',
                 handler: function () {
                     me.fireEvent('general-send', me);
                 }

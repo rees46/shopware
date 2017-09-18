@@ -47,7 +47,7 @@ class Shopware_Controllers_Backend_Rees46 extends Shopware_Controllers_Backend_E
 
     public function getFieldsAction()
     {
-		//$this->apiLeadTracking();
+		$this->apiLeadTracking();
 
         $data = $this->config;
         $data['auth_email'] = Shopware()->Config()->get('mail');

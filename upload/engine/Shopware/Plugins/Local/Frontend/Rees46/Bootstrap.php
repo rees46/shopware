@@ -122,7 +122,7 @@ class Shopware_Plugins_Frontend_Rees46_Bootstrap extends Shopware_Components_Plu
         );
 
         $this->subscribeEvent(
-            'sBasket::sDeleteArticle::after',
+            'sBasket::sDeleteArticle::before',
             'onBasketDeleteArticle'
         );
 
@@ -291,7 +291,22 @@ class Shopware_Plugins_Frontend_Rees46_Bootstrap extends Shopware_Components_Plu
 
     private function _createBlocks()
     {
-        $sql = '';
+        $sql = 'INSERT INTO `rees46_blocks` (`page`, `type`, `title`, `limit`, `template`, `position`, `status`) VALUES ("index", "popular", "Popular Products", "6", "rees46", "1", "1");';
+        $sql .= 'INSERT INTO `rees46_blocks` (`page`, `type`, `title`, `limit`, `template`, `position`, `status`) VALUES ("index", "supply", "Regular Purchase", "6", "rees46", "2", "1");';
+        $sql .= 'INSERT INTO `rees46_blocks` (`page`, `type`, `title`, `limit`, `template`, `position`, `status`) VALUES ("index", "interesting", "You May Also Like", "6", "rees46", "3", "1");';
+
+        $sql .= 'INSERT INTO `rees46_blocks` (`page`, `type`, `title`, `limit`, `template`, `position`, `status`) VALUES ("listing", "popular", "Popular Products", "6", "rees46", "4", "1");';
+        $sql .= 'INSERT INTO `rees46_blocks` (`page`, `type`, `title`, `limit`, `template`, `position`, `status`) VALUES ("listing", "interesting", "You May Also Like", "6", "rees46", "5", "1");';
+        $sql .= 'INSERT INTO `rees46_blocks` (`page`, `type`, `title`, `limit`, `template`, `position`, `status`) VALUES ("listing", "recently_viewed", "You Recently Viewed", "6", "rees46", "6", "1");';
+
+        $sql .= 'INSERT INTO `rees46_blocks` (`page`, `type`, `title`, `limit`, `template`, `position`, `status`) VALUES ("detail", "also_bought", "Frequently Bought Together", "6", "rees46", "7", "1");';
+        $sql .= 'INSERT INTO `rees46_blocks` (`page`, `type`, `title`, `limit`, `template`, `position`, `status`) VALUES ("detail", "similar", "Similar Products", "6", "rees46", "8", "1");';
+        $sql .= 'INSERT INTO `rees46_blocks` (`page`, `type`, `title`, `limit`, `template`, `position`, `status`) VALUES ("detail", "buying_now", "Trending Products", "6", "rees46", "9", "1");';
+
+        $sql .= 'INSERT INTO `rees46_blocks` (`page`, `type`, `title`, `limit`, `template`, `position`, `status`) VALUES ("checkout", "see_also", "Recommended For You", "6", "rees46", "10", "1");';
+        $sql .= 'INSERT INTO `rees46_blocks` (`page`, `type`, `title`, `limit`, `template`, `position`, `status`) VALUES ("checkout", "interesting", "You May Also Like", "6", "rees46", "11", "1");';
+
+        $sql .= 'INSERT INTO `rees46_blocks` (`page`, `type`, `title`, `limit`, `template`, `position`, `status`) VALUES ("search", "search", "Customers Who Looked For This Item Also Bought", "6", "rees46", "12", "1");';
 
         try {
             Shopware()->Db()->query($sql);
@@ -438,8 +453,8 @@ class Shopware_Plugins_Frontend_Rees46_Bootstrap extends Shopware_Components_Plu
             }
         }
 
-        if ($controller == 'search' && $action == 'index') {
-            $search_query = $this->Request()->getParam('sSearch');
+        if ($controller == 'search' && $request->getParam('sSearch')) {
+            $search_query = $request->getParam('sSearch');
         }
 
         if (Shopware()->Session()->offsetGet('REES46_CART')) {
@@ -492,11 +507,11 @@ class Shopware_Plugins_Frontend_Rees46_Bootstrap extends Shopware_Components_Plu
         /**
          * Loading blocks
          */
-        if (($controller === 'index' && $action === 'index') ||
-            ($controller === 'listing' && $action === 'index') ||
-            ($controller === 'detail' && $action === 'index') ||
-            ($controller === 'checkout' && ($action === 'confirm' || $action === 'cart')) ||
-            ($controller === 'search'))
+        if (($controller == 'index' && $action == 'index') ||
+            ($controller == 'listing' && $action == 'index') ||
+            ($controller == 'detail' && $action == 'index') ||
+            ($controller == 'checkout' && ($action == 'confirm' || $action == 'cart')) ||
+            ($controller == 'search'))
         {
             $blocks = $this->getBlocks($controller);
 
@@ -625,9 +640,15 @@ class Shopware_Plugins_Frontend_Rees46_Bootstrap extends Shopware_Components_Plu
 
     public function onBasketDeleteArticle(Enlight_Hook_HookArgs $args)
     {
-        $js = 'r46(\'track\', \'remove_from_cart\', ' . $args->get('id') . ');' . "\n";
+        $basket = Shopware()->Modules()->Basket()->sGetBasket();
 
-        Shopware()->Session()->offsetSet('REES46_CART', Shopware()->Session()->offsetGet('REES46_CART') . $js);
+        foreach ($basket['content'] as $basket_product) {
+            if ($basket_product['id'] == $args->get('id')) {
+                $js = 'r46(\'track\', \'remove_from_cart\', ' . $basket_product['articleID'] . ');' . "\n";
+
+                Shopware()->Session()->offsetSet('REES46_CART', Shopware()->Session()->offsetGet('REES46_CART') . $js);
+            }
+        }
     }
 
     public function onUpdateOrder(Enlight_Event_EventArgs $args)
