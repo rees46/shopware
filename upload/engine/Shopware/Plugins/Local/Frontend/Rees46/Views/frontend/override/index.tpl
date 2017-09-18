@@ -11,17 +11,34 @@
 
 {block name="frontend_index_content_wrapper"}
     {$smarty.block.parent}
-
 	{foreach from=$REES46_MODULES item=module}
 		{if $module.params}
-		<script>
-		r46('recommend', '{$module.type}', {$module.params|json_encode nofilter}, function(results) {
-			if (results.length > 0) {
-				$('#rees46-recommended-{$module.id}').load('rees46&module_id={$module.id}&product_ids=' + results);
-			}
-		});
-		</script>
-		<div id="rees46-recommended-{$module.id}"></div>
+			<script>
+			r46('recommend', '{$module.type}', {$module.params|json_encode nofilter}, function(results) {
+				if (results.length > 0) {
+					$('#rees46-recommended-{$module.id} .product-slider--container').load('rees46?module_id={$module.id}&product_ids=' + results, function(results) {
+						$('#rees46-recommended-{$module.id}').css('display', 'block');
+					});
+				}
+			});
+			</script>
+			{if $module.template == 'rees46'}
+			<div id="rees46-recommended-{$module.id}" style="margin: 0rem 0rem 0.625rem 0rem; display: none;">
+				<div class="rees46 rees46-recommend">
+					<div class="recommender-block-title">{$module.title}</div>
+					<div class="recommended-items product-slider--container"></div>
+			    </div>
+			</div>
+			{else}
+			<div id="rees46-recommended-{$module.id}" class="panel has--border" style="margin: 0rem 0rem 0.625rem 0rem; display: none;">
+			    <div class="panel--title is--underline product-slider--title">{$module.title}</div>
+			    <div class="product-slider product-slider--content" style="padding: 0rem 1.25rem 1.25rem 0rem;">
+			        <div class="product-slider" data-product-slider="false" data-itemMinWidth="25%">
+			            <div class="product-slider--container is--horizontal"></div>
+			        </div>
+			    </div>
+			</div>
+			{/if}
 		{/if}
 	{/foreach}
 {/block}

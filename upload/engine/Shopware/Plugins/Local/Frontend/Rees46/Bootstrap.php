@@ -71,8 +71,6 @@ class Shopware_Plugins_Frontend_Rees46_Bootstrap extends Shopware_Components_Plu
         $this->registerController('Backend', 'Rees46');
         $this->registerController('Frontend', 'Rees46');
         $this->registerController('Frontend', 'Rees46Export');
-        $this->registerController('Frontend', 'Rees46ExportProduct');
-        $this->registerController('Frontend', 'Rees46ExportSync');
     }
 
     private function _createMenu()
@@ -504,12 +502,16 @@ class Shopware_Plugins_Frontend_Rees46_Bootstrap extends Shopware_Components_Plu
 
             if (!empty($blocks)) {
                 foreach ($blocks as $key => $module) {
+                    if (!$module['status']) {
+                        continue;
+                    }
+
                     $params = [];
 
                     $params['limit'] = (int)$module['limit'];
 
                     if ($module['template'] == 'rees46') {
-                        $css = 'r46(\'add_css\', \'recommendations\');';
+                        $css = 'r46(\'add_css\', \'recommendations\');' . "\n";
                     }
 
                     if ($module['type'] == 'interesting') {

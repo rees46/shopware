@@ -78,6 +78,10 @@ Ext.define('Shopware.apps.Rees46.view.settings.Blocks', {
             fields: [ 'id', 'name' ],
             data: [
                 { id: 'rees46', name: '{s name="blocks_template_rees46"}REES46{/s}' },
+                { id: 'minimal', name: '{s name="blocks_template_minimal"}Minimal{/s}' },
+                { id: 'image', name: '{s name="blocks_template_image"}Grid{/s}' },
+                { id: 'list', name: '{s name="blocks_template_list"}List{/s}' },
+                { id: 'basic', name: '{s name="blocks_template_basic"}Basic{/s}' },
             ]
         });
 
