@@ -64,7 +64,6 @@ class Shopware_Controllers_Backend_Rees46 extends Shopware_Controllers_Backend_E
     {
         if (!$this->config['REES46_ACTION_LEAD']) {
             $shop = $this->em->getRepository('Shopware\Models\Shop\Shop')->getActiveDefault();
-            $shop->registerResources();
 
             $params = [
                 'website' => $shop->getAlwaysSecure() ? 'https://' . $shop->getSecureHost() . $shop->getSecureBasePath() : 'http://' . $shop->getHost() . $shop->getBasePath(),
@@ -279,7 +278,6 @@ class Shopware_Controllers_Backend_Rees46 extends Shopware_Controllers_Backend_E
         }
 
         $shop = $this->em->getRepository('Shopware\Models\Shop\Shop')->getActiveDefault();
-        $shop->registerResources();
 
         $curl['api_key'] = $this->config['REES46_API_KEY'];
         $curl['api_secret'] = $this->config['REES46_API_SECRET'];
@@ -352,7 +350,6 @@ class Shopware_Controllers_Backend_Rees46 extends Shopware_Controllers_Backend_E
         }
 
         $shop = $this->em->getRepository('Shopware\Models\Shop\Shop')->getActiveDefault();
-        $shop->registerResources();
 
         $curl['yml_file_url'] = $shop->getAlwaysSecure() ? 'https://' . $shop->getSecureHost() . $shop->getSecureBasePath() : 'http://' . $shop->getHost() . $shop->getBasePath() . '/rees46_export';
 

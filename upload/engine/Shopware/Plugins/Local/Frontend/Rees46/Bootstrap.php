@@ -101,35 +101,39 @@ class Shopware_Plugins_Frontend_Rees46_Bootstrap extends Shopware_Components_Plu
 
     private function _createEvent()
     {
-        $this->subscribeEvent(
-            'Enlight_Controller_Action_PostDispatch_Backend_Index',
-            'onBackendIndex'
-        );
+        try {
+            $this->subscribeEvent(
+                'Enlight_Controller_Action_PostDispatch_Backend_Index',
+                'onBackendIndex'
+            );
 
-        $this->subscribeEvent(
-            'Enlight_Controller_Action_PostDispatchSecure_Backend_PluginManager',
-            'onBackendPluginManager'
-        );
+            $this->subscribeEvent(
+                'Enlight_Controller_Action_PostDispatchSecure_Backend_PluginManager',
+                'onBackendPluginManager'
+            );
 
-        $this->subscribeEvent(
-            'Enlight_Controller_Action_PostDispatch_Frontend',
-            'onFrontend'
-        );
+            $this->subscribeEvent(
+                'Enlight_Controller_Action_PostDispatch_Frontend',
+                'onFrontend'
+            );
 
-        $this->subscribeEvent(
-            'Shopware_Modules_Basket_AddArticle_Start',
-            'onBasketAddArticle'
-        );
+            $this->subscribeEvent(
+                'Shopware_Modules_Basket_AddArticle_Start',
+                'onBasketAddArticle'
+            );
 
-        $this->subscribeEvent(
-            'sBasket::sDeleteArticle::before',
-            'onBasketDeleteArticle'
-        );
+            $this->subscribeEvent(
+                'sBasket::sDeleteArticle::before',
+                'onBasketDeleteArticle'
+            );
 
-        $this->subscribeEvent(
-            'Shopware\Models\Order\Order::postUpdate',
-            'onUpdateOrder'
-        );
+            $this->subscribeEvent(
+                'Shopware\Models\Order\Order::postUpdate',
+                'onUpdateOrder'
+            );
+        } catch (Exception $exception) {
+            throw new Exception("Error subscribe event. " . $exception->getMessage());
+        }
     }
 
     private function _createForm()
@@ -253,14 +257,6 @@ class Shopware_Plugins_Frontend_Rees46_Bootstrap extends Shopware_Components_Plu
             'required' => true,
             'scope' => \Shopware\Models\Config\Element::SCOPE_SHOP,
             'hidden' => true,
-        ]);
-
-        $this->addFormTranslations([
-            'en_GB' => [
-                'plugin_form' => [
-                    'label' => 'REES46 eCommerce Marketing Suite'
-                ]
-            ]
         ]);
 
         $parent = $this->Forms()->findOneBy(['name' => 'Interface']);
