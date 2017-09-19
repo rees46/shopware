@@ -7,7 +7,7 @@ Ext.define('Shopware.apps.Override.PluginManagerViewDetailContainer', {
         var me = this,
             result = me.callParent(arguments);
 
-        if (plugin.get('name') === 'Rees46') {
+        if (plugin.get('label') === 'REES46 eCommerce Marketing Suite') {
             me.informationTab.navigationClick(me.tabIndex.localDescription);
             me.informationTab.hideTab(me.tabIndex.configuration);
             me.configurationContainer.hide();
