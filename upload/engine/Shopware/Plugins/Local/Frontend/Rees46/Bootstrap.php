@@ -35,7 +35,7 @@ class Shopware_Plugins_Frontend_Rees46_Bootstrap extends Shopware_Components_Plu
                 . '<li>Abandoned cart remarketing tool</li>'
                 . '</ul><br>'
                 . '<button class="plugin-manager-action-button primary" onclick="window.open(\'https://rees46.com/customers/sign_in\');">REES46 dashboard</button><br><br>'
-                . 'Documentation: <a href="http://docs.rees46.com/display/en/Shopware+Plugin" target="_blank">http://docs.rees46.com/display/en/Shopware+Plugin</a><br><br>'
+                . 'Documentation: <a href="https://docs.rees46.com/display/en/Shopware+Plugin" target="_blank">https://docs.rees46.com/display/en/Shopware+Plugin</a><br><br>'
                 . 'Support: <a href="mailto:support@rees46.com?subject=Support for REES46 Shopware plugin">support@rees46.com</a>'
         ];
     }

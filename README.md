@@ -6,9 +6,7 @@
 
 ## Documentation
 
-English documentation: []()
-
-Русская документация: []()
+[https://docs.rees46.com/display/en/Shopware+Plugin](https://docs.rees46.com/display/en/Shopware+Plugin)
 
 ## Support
 

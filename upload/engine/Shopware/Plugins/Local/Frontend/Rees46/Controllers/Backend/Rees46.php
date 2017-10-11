@@ -47,7 +47,7 @@ class Shopware_Controllers_Backend_Rees46 extends Shopware_Controllers_Backend_E
 
     public function getFieldsAction()
     {
-		$this->apiLeadTracking();
+        $this->apiLeadTracking();
 
         $data = $this->config;
         $data['auth_email'] = Shopware()->Config()->get('mail');
@@ -745,7 +745,7 @@ class Shopware_Controllers_Backend_Rees46 extends Shopware_Controllers_Backend_E
         if (!empty($params)) {
             $this->saveBlocks($params);
         } else {
-        	$this->clearBlocks();
+            $this->clearBlocks();
         }
 
         $this->clearCache();
@@ -761,18 +761,18 @@ class Shopware_Controllers_Backend_Rees46 extends Shopware_Controllers_Backend_E
         $ids = [];
 
         foreach ($blocks as $block) {
-	        $id = $block['id'] > 0 ? $block['id'] : null;
-	        unset($block['id']);
+            $id = $block['id'] > 0 ? $block['id'] : null;
+            unset($block['id']);
 
-	        if ($id !== null) {
-	            Shopware()->Db()->update('rees46_blocks', $block, ['id=?' => $id]);
+            if ($id !== null) {
+                Shopware()->Db()->update('rees46_blocks', $block, ['id=?' => $id]);
 
-	            $ids[] = $id;
-	        } else {
-	            Shopware()->Db()->insert('rees46_blocks', $block);
+                $ids[] = $id;
+            } else {
+                Shopware()->Db()->insert('rees46_blocks', $block);
 
-	            $ids[] = Shopware()->Db()->lastInsertId('rees46_blocks');
-	        }
+                $ids[] = Shopware()->Db()->lastInsertId('rees46_blocks');
+            }
         }
 
         $this->undeleteBlocks($ids);

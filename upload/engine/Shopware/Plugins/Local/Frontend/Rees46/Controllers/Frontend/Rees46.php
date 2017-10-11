@@ -11,7 +11,7 @@ class Shopware_Controllers_Frontend_Rees46 extends Enlight_Controller_Action
         $block_id = (int)$this->Request()->getParam('module_id');
 
         if (empty($product_ids) || !$block_id) {
-        	return;
+            return;
         }
 
         $settings = $this->getBlock($block_id);
@@ -44,7 +44,7 @@ class Shopware_Controllers_Frontend_Rees46 extends Enlight_Controller_Action
         }
 
         if (empty($articles)) {
-        	return;
+            return;
         }
 
         if ($settings['template'] == 'rees46') {
